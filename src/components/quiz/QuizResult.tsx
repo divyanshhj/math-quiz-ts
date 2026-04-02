@@ -16,14 +16,24 @@ const QuizResult: React.FC<Props> = ({ results, total }) => {
     <div className="min-h-screen bg-gray-100 flex justify-center items-start p-6">
       <div className="w-full max-w-3xl bg-white shadow-xl rounded-2xl p-6 space-y-6 overflow-y-auto max-h-[90vh]">
         <div className="text-center">
-          <Typography variant="h2">🎉 Quiz Completed</Typography>
+          <Typography variant="h2">
+            <i
+              className="fa-solid fa-brain fa-flip"
+              style={{ color: "#FFD700", marginRight: "15px" }}
+            ></i>
+            Quiz Completed
+          </Typography>
           <Typography variant="h1" className="text-blue-600 mt-2">
             {correct.length} / {total}
           </Typography>
 
           <div className="flex justify-center gap-6 mt-4 text-lg">
-            <span className="text-green-600"><i className="fa-solid fa-circle-check"></i> {correct.length}</span>
-            <span className="text-red-500"><i className="fa-solid fa-circle-xmark"></i> {wrong.length}</span>
+            <span className="text-green-600">
+              <i className="fa-solid fa-circle-check"></i> {correct.length}
+            </span>
+            <span className="text-red-500">
+              <i className="fa-solid fa-circle-xmark"></i> {wrong.length}
+            </span>
             <span className="text-yellow-500">
               <i className="fa-solid fa-clock"></i> {timeout.length}
             </span>
