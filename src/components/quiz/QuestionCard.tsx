@@ -1,4 +1,7 @@
 import type { Question } from "../../types/quiz.types";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
+import Typography from "../ui/Typography";
 
 interface Props {
   question: Question;
@@ -27,32 +30,34 @@ const QuestionCard: React.FC<Props> = ({
       onSubmit={handleSubmit}
       className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md text-center"
     >
-      <h2 className="text-lg font-semibold text-gray-500">
+      <Typography variant="h3" className="text-gray-500">
         Question {index + 1}
-      </h2>
+      </Typography>
 
-      <h1 className="text-3xl font-bold mt-4">
-        {question.num1} {question.operator} {question.num2}
-      </h1>
+      <Typography variant="h1" className="mt-4">
+        <i className="fa-solid fa-calculator"></i> {question.num1}{" "}
+        {question.operator} {question.num2}
+      </Typography>
 
-      <input
+      <Input
         type="number"
         step="any"
         value={value}
+        onChange={onChange}
         disabled={disabled}
-        onChange={(e) => onChange(e.target.value)}
         autoFocus
-        className="mt-6 w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         placeholder="Enter answer"
+        className="mt-6"
       />
 
-      <button
+      <Button
         type="submit"
+        onClick={onNext}
         disabled={disabled || !value}
-        className="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        className="mt-6"
       >
-        Next
-      </button>
+        Next <i className="fa-solid fa-arrow-right"></i>
+      </Button>
     </form>
   );
 };
