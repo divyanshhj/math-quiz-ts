@@ -1,32 +1,23 @@
+// components/ui/Badge.tsx
 import React from "react";
 
-type Variant = "success" | "error" | "warning" | "default";
-
 interface BadgeProps {
+  variant?: "indigo" | "emerald" | "amber" | "red";
   children: React.ReactNode;
-  variant?: Variant;
   className?: string;
 }
 
-const baseStyles = "px-2 py-1 rounded-full text-xs font-medium inline-block";
+export default function Badge({ variant = "indigo", children, className = "" }: BadgeProps) {
+  const colors = {
+    indigo: "text-indigo-600 bg-indigo-50 border-indigo-100",
+    emerald: "text-emerald-600 bg-emerald-50 border-emerald-100",
+    amber: "text-amber-600 bg-amber-50 border-amber-100",
+    red: "text-red-600 bg-red-50 border-red-100",
+  };
 
-const variants: Record<Variant, string> = {
-  success: "bg-green-100 text-green-700",
-  error: "bg-red-100 text-red-700",
-  warning: "bg-yellow-100 text-yellow-700",
-  default: "bg-gray-100 text-gray-700",
-};
-
-const Badge: React.FC<BadgeProps> = ({
-  children,
-  variant = "default",
-  className = "",
-}) => {
   return (
-    <span className={`${baseStyles} ${variants[variant]} ${className}`}>
+    <span className={`text-xs font-semibold border rounded-full px-2.5 py-1 ${colors[variant]} ${className}`}>
       {children}
     </span>
   );
-};
-
-export default Badge;
+}
