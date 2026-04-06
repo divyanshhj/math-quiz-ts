@@ -1,43 +1,46 @@
+// components/ui/Button.tsx
 import React from "react";
 
-type Variant = "primary" | "secondary";
-
-interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  type?: "button" | "submit";
-  disabled?: boolean;
-  className?: string;
-  variant?: Variant;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "outline" | "dark";
 }
 
-const baseStyles =
-  "w-full rounded-lg transition font-medium focus:outline-none";
+export default function Button({ 
+  variant = "primary", 
+  className = "", 
+  disabled, 
+  children, 
+  ...props 
+}: ButtonProps) {
+  const baseClasses = "rounded-lg text-sm font-semibold transition-colors shadow-sm focus:outline-none flex items-center justify-center ";
+  let variantClasses = "";
 
-const variants: Record<Variant, string> = {
-  primary:
-    "bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed",
-  secondary: "bg-gray-200 text-black hover:bg-gray-300 disabled:opacity-50",
-};
+  if (disabled) {
+    variantClasses = "bg-slate-200 text-slate-400 cursor-not-allowed";
+  } else {
+    switch (variant) {
+      case "primary":
+        variantClasses = "bg-indigo-600 hover:bg-indigo-700 text-white";
+        break;
+      case "dark":
+        variantClasses = "bg-slate-800 hover:bg-slate-900 text-white";
+        break;
+      case "outline":
+        variantClasses = "bg-white text-slate-600 border border-slate-300 hover:border-indigo-400";
+        break;
+      case "secondary":
+        variantClasses = "bg-indigo-600 text-white border border-indigo-600";
+        break;
+    }
+  }
 
-const Button: React.FC<ButtonProps> = ({
-  children,
-  onClick,
-  type = "button",
-  disabled = false,
-  className = "",
-  variant = "primary",
-}) => {
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={`${baseStyles} ${variants[variant]} py-2 ${className}`}
+    <button 
+      className={`${baseClasses} ${variantClasses} ${className}`} 
+      disabled={disabled} 
+      {...props}
     >
       {children}
     </button>
   );
-};
-
-export default Button;
+}
